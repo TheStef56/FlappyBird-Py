@@ -207,15 +207,15 @@ def startGame():
                 if SCORE >= 100:
                     if DIFFICULTY == 1:
                         DIFFICULTY = 2
-                        delim = 13
+                        delim = TOWERSIZE*2 - 3
                     if SCORE >= 300:
                         if DIFFICULTY == 2:
                             DIFFICULTY = 3
-                            delim = 10
+                            delim = TOWERSIZE*2 - 6
                         if SCORE >= 500:
                             if DIFFICULTY == 3:
                                 DIFFICULTY = 4
-                                delim = 8
+                                TOWERSIZE = 8
 
                 if count >= delim:
                     r = random.randint(0, 2)
