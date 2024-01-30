@@ -29,7 +29,7 @@
                                                                                                 
                                                                                                                                                        
 
-**A python version of Flappy Bird I previously wrote in C **
+**A python version of Flappy Bird I previously wrote in C**
 
 *this is obviously cross platform*
 
