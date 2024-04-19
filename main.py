@@ -9,6 +9,7 @@ GAMEOVER = False
 SCORE = 0
 DIFFICULTY = 1
 HIGHSCORE = 0
+FPS_CAP = 20
 FPS = 0
 
 def gotoxy(x, y):
@@ -161,12 +162,10 @@ def hideCursor():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def startGame():
-    global GAMEOVER, SCORE, DIFFICULTY, HIGHSCORE, FPS
+    global GAMEOVER, SCORE, DIFFICULTY, HIGHSCORE, FPS, FPS_CAP
     count = 0
     top = 0
     delim = TOWERSIZE * 2
-    t1 = 0
-    t2 = 0
     time.sleep(0.5)
     printGameIntro()
     while True:
@@ -180,13 +179,12 @@ def startGame():
 
     while True:
         try:
-            t2 = time.time()
-            FPS = 1 / (t2 - t1)
-            t1 = t2
+            t1 = time.time()
             for _ in range(DIFFICULTY):
                 if GAMEOVER:
                     printGameOver()
                     while True:
+                        time.sleep(0.1)
                         if keyboard.is_pressed('enter'):
                             hideCursor()
                             count = 0
@@ -196,6 +194,7 @@ def startGame():
                             SCORE = 0
                             DIFFICULTY = 1
                             initArray(textureArray)
+                            t1 = time.time()
                             break
 
                 shiftArrayTick(textureArray, 2)
@@ -226,6 +225,9 @@ def startGame():
                             top = 1
                         count = 0
                 count += 1
+            time.sleep(1/FPS_CAP - (time.time() - t1))
+            t2 = time.time()
+            FPS = 1 / (t2 - t1)
             printMat(textureArray)
             
         except KeyboardInterrupt:
